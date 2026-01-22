@@ -5,9 +5,9 @@ exports.getAllPlans = async (req, res) => {
   try {
     let query;
 
-    // If viewer, show only their assigned plans
+    // If viewer, show all plans
     if (req.user.role === 'viewer') {
-      query = ORSPlan.find({ assignedTo: req.user.id });
+      query = ORSPlan.find();
     } else if (req.user.role === 'inspector') {
       // Inspector can see their created plans
       query = ORSPlan.find({
