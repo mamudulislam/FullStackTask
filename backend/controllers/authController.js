@@ -7,13 +7,9 @@ const generateToken = (id) => {
     expiresIn: '7d',
   });
 };
-
-// Register User
 exports.register = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
-
-    // Validate input
     if (!username || !email || !password) {
       return res.status(400).json({
         success: false,
@@ -21,7 +17,6 @@ exports.register = async (req, res) => {
       });
     }
 
-    // Check if user already exists
     const userExists = await User.findOne({ $or: [{ email }, { username }] });
     if (userExists) {
       return res.status(400).json({
@@ -30,7 +25,7 @@ exports.register = async (req, res) => {
       });
     }
 
-    // Create user
+
     const user = await User.create({
       username,
       email,

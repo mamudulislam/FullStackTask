@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { orsAPI } from '../api';
+import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 export default function ORSForm() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const isEditing = !!id;
 
   const [formData, setFormData] = useState({
@@ -17,6 +20,12 @@ export default function ORSForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [pageLoading, setPageLoading] = useState(isEditing);
+
+  useEffect(() => {
+    if (user?.role === 'viewer') {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   useEffect(() => {
     if (isEditing) {

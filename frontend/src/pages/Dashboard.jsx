@@ -241,7 +241,11 @@ export default function Dashboard() {
             <div className="bg-white rounded-xl shadow-lg p-12 text-center">
               <div className="text-6xl mb-4">📋</div>
               <p className="text-gray-600 text-lg font-semibold">No ORS plans found</p>
-              <p className="text-gray-500 mt-2">Start by creating your first ORS plan</p>
+              {user?.role === 'viewer' ? (
+                <p className="text-gray-500 mt-2">No ORS plans are currently available for viewing.</p>
+              ) : (
+                <p className="text-gray-500 mt-2">Start by creating your first ORS plan</p>
+              )}
             </div>
           )
         )}
