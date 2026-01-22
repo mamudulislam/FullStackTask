@@ -335,3 +335,11 @@ Full Stack ORS Tracker Application
 **Last Updated**: February 2026
 
 **Submission Deadline**: 25/02/2026 11:59 PM
+
+
+
+Demo Credentials
+
+Admin: admin01@gmail.com / 1234567890
+Inspector: admin02@gmail.com / 1234567890
+Viewer: admin03@gmail.com / 1234567890
