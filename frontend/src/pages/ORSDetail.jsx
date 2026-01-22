@@ -1,30 +1,36 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { orsAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 
 export default function ORSDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useAuth();
   const [plan, setPlan] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    fetchPlan();
-  }, [id]);
+    const fetchPlan = async () => {
+      try {
+        const response = await orsAPI.getPlan(id);
+        setPlan(response.data.data);
+      } catch (err) {
+        setError(err.response?.data?.message || 'Error fetching plan');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const fetchPlan = async () => {
-    try {
-      const response = await orsAPI.getPlan(id);
-      setPlan(response.data.data);
-    } catch (err) {
-      setError(err.response?.data?.message || 'Error fetching plan');
-    } finally {
+    if (location.state?.plan) {
+      setPlan(location.state.plan);
       setLoading(false);
+    } else {
+      fetchPlan();
     }
-  };
+  }, [id, location.state]);
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this plan? This action cannot be undone.')) {

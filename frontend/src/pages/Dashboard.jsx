@@ -208,6 +208,7 @@ export default function Dashboard() {
                     <div className="flex gap-2">
                       <Link
                         to={`/ors/${plan._id}`}
+                        state={{ plan }}
                         className="flex-1 text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-3 rounded-lg text-sm transition transform hover:scale-105 active:scale-95"
                       >
                         👁️ View
